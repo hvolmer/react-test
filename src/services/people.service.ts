@@ -28,6 +28,7 @@ export async function getAllAtOnce() {
   return allPeople;
 }
 
+
 interface PeopleGetAllResult {
   count: number;
   next?: string;

@@ -1,70 +1,26 @@
-# Getting Started with Create React App
+# React test
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+To start: `npm start` and open browser to `http://localhost:3000`
 
-## Available Scripts
+Application is missing the following:
 
-In the project directory, you can run:
+- Pagination on lists
+- Search by character name 
+- Details page fully-populated from other API resources like home world, startships...
+- Selection of no-species characters
 
-### `npm start`
+NOTES: 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+This is my first foray into react. I tried to use more-modern features like hooks, but haven't quite gotten to the bottom of using reducers with state.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+The API seems to be missing species data on many if not most of the people resources. 
+I have made the application put those people in a special category of no-species
+but have not made them load on the characters page yet.  Luke Skywalker and Darth Vader apparently defy species categorization.
 
-### `npm test`
+The API paginates, 10-per on any resource.  So in order to filter by species, we must
+pre-load all of the characters and sort them in the UI app. The API does not provide
+searching characters by species.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+I am not a css master, or visual-designer.  I can often create a very-good rendering of a layout provided by others, up to 85-90%, where a CSS-master must finish off the details.
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+There are no tests.

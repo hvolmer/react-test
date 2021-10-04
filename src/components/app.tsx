@@ -16,15 +16,18 @@ import { AppBreadcrumbs } from "./app-breadcrumbs";
 import { CharacterDetail } from "./character-detail";
 import { AppSearch } from "./app-search";
 
+/**
+ * Context for supporting child components without passing props
+ */
 export const AppContext = React.createContext<AppContextProps>({
   onSelectCharacter: (c) => { },
   onSelectSpecies: (c) => { },
 });
 
-
+/**
+ * The main component
+ */
 export class App extends React.Component<any, AppState> {
-
-  currentSpeciesUrl: string = '';
 
   constructor(props: any) {
     super(props);
@@ -37,6 +40,9 @@ export class App extends React.Component<any, AppState> {
     }
   }
 
+  /**
+   * 
+   */
   async componentDidMount() {
     const allSpecies = await getAllSpecies();
     this.setState({
@@ -52,8 +58,7 @@ export class App extends React.Component<any, AppState> {
   }
 
   /**
-   * 
-   * @param c 
+   * Context callback from child component
    */
   onSelectCharacter = (c: Person) => {
     console.log("ON SELECT CHARACTER", c);
@@ -63,8 +68,7 @@ export class App extends React.Component<any, AppState> {
   }
 
   /**
-   * 
-   * @param s 
+   * Context callback from child component
    */
   onSelectSpecies = (s: Species) => {
     this.setState({
@@ -74,7 +78,6 @@ export class App extends React.Component<any, AppState> {
 
   /**
    * 
-   * @returns 
    */
   render() {
     return (
@@ -90,8 +93,9 @@ export class App extends React.Component<any, AppState> {
               <div className="d-inline">
                 <strong>Star Wars Characters</strong>
                 <span className="mx-2">|</span>
-                <AppBreadcrumbs species={this.state.species}
-                  characters={this.state.people} />
+                <AppBreadcrumbs />
+                {/* species={this.state.species}
+                  characters={this.state.people} /> */}
               </div>
             </div>
             <AppSearch />
@@ -113,6 +117,9 @@ export class App extends React.Component<any, AppState> {
   }
 }
 
+/**
+ * Main application state
+ */
 export interface AppState {
   peopleLoaded: boolean;
   people: Person[];
@@ -121,6 +128,9 @@ export interface AppState {
   species: Species[];
 }
 
+/**
+ * Properties and callbacks for the AppContext
+ */
 export interface AppContextProps {
   onSelectCharacter: (p: Person) => void;
   onSelectSpecies: (s: Species) => void;

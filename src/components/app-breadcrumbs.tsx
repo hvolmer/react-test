@@ -2,11 +2,12 @@ import { useContext } from "react";
 import { Breadcrumb, BreadcrumbItem } from "react-bootstrap";
 import { Route } from "react-router";
 import { Link } from "react-router-dom";
-import { Person } from "../types/person";
-import { Species } from "../types/species";
 import { AppContext } from "./app";
 
-export function AppBreadcrumbs(props: AppBreadcrumbsProps) {
+/**
+ * Breadcrumb-style navigation through data
+ */
+export function AppBreadcrumbs() {
   const appContext = useContext(AppContext);
 
   let speciesLink = '/';
@@ -44,9 +45,4 @@ export function AppBreadcrumbs(props: AppBreadcrumbsProps) {
       </div>
     </>
   );
-}
-
-interface AppBreadcrumbsProps {
-  species: Species[];
-  characters: Person[];
 }

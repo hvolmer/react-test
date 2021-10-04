@@ -5,7 +5,7 @@ import { Species } from "../types/species";
 import { AppContext } from "./app";
 
 /**
- * 
+ * A list of species
  */
 export function SpeciesListContainer(props: SpeciesListProps) {
   const appContext = useContext(AppContext);
@@ -39,7 +39,7 @@ export function SpeciesListContainer(props: SpeciesListProps) {
 }
 
 /**
- * 
+ * The previous/next pagination buttons
  */
 function SpeciesListNav() {
   return (
@@ -54,6 +54,9 @@ function SpeciesListNav() {
   );
 }
 
+/**
+ * Props for SpeciesList
+ */
 interface SpeciesListProps {
   allSpecies: Species[];
 }

@@ -4,6 +4,9 @@ import { useHistory } from "react-router";
 import { Person } from "../types/person";
 import { AppContext, AppContextProps } from "./app";
 
+/**
+ * A list of characters
+ */
 export function CharacterListContainer(props: CharacterListContainerProps) {
   const appContext = useContext<AppContextProps>(AppContext);
 
@@ -14,7 +17,8 @@ export function CharacterListContainer(props: CharacterListContainerProps) {
   useEffect(() => {
     const matchingCharacters = props.characters.filter(c => c.species.includes(speciesUrl));
     setCharacters(matchingCharacters);
-    // Not sure how else to make this nuisance warning go away
+    // Not sure how else to make this nuisance warning go away without invoking 
+    // endless state changes
     // eslint-disable-next-line
   }, []);
 
@@ -48,7 +52,7 @@ export function CharacterListContainer(props: CharacterListContainerProps) {
 }
 
 /**
- * 
+ * Pagination buttons for list (do not work yet)
  */
 function ListNav() {
   return (
@@ -63,6 +67,9 @@ function ListNav() {
   );
 }
 
+/**
+ * Props for the character list
+ */
 interface CharacterListContainerProps {
   characters: Person[];
 }

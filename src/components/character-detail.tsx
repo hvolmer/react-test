@@ -2,13 +2,14 @@ import { useContext } from "react"
 import { Col, Row } from "react-bootstrap";
 import { AppContext } from "./app"
 
+/**
+ * Character detail component
+ */
 export function CharacterDetail(props: any) {
   const appContext = useContext(AppContext);
   const char = appContext.selectedCharacter;
   if (!char) { throw new Error(); }
 
-  console.log('DETAIL!')
-  console.log(char);
   return (
     <div>
       <p>Character detail...</p>
@@ -25,11 +26,13 @@ export function CharacterDetail(props: any) {
       <CharacterItem name="Starships" value={char.starships.toString()} />
       <CharacterItem name="Vehicles" value={char.vehicles.toString()} />
       <CharacterItem name="Films" value={char.films.toString()} />
-      
     </div>
   )
 }
 
+/**
+ * Individual, simplistic character data rows
+ */
 function CharacterItem(props: CharacterItemProps) {
   return (
     <Row className="mb-2">
@@ -44,6 +47,9 @@ function CharacterItem(props: CharacterItemProps) {
   );
 }
 
+/**
+ * Props for individual row items
+ */
 interface CharacterItemProps {
   name: string;
   value: string;

@@ -6,7 +6,7 @@ export function AppSearch(props: any) {
         <input type="text" className="form-control form-control-sm" />
       </div>
       <div className="col-1 ml-2">
-        <button className="btn btn-sm btn-outline-secondary">Search</button>
+        <button className="btn btn-sm btn-outline-secondary" disabled>Search</button>
 
       </div>
     </div>

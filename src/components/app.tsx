@@ -80,39 +80,41 @@ export class App extends React.Component<any, AppState> {
    * 
    */
   render() {
+    const isLoaded = this.state.species.length > 0;
     return (
-      <AppContext.Provider value={{
-        onSelectCharacter: this.onSelectCharacter,
-        onSelectSpecies: this.onSelectSpecies,
-        selectedCharacter: this.state.selectedCharacter,
-        selectedSpecies: this.state.selectedSpecies,
-      }}>
-        <Router>
-          <Container fluid="md">
-            <div className="mt-4">
-              <div className="d-inline">
-                <strong>Star Wars Characters</strong>
-                <span className="mx-2">|</span>
-                <AppBreadcrumbs />
-                {/* species={this.state.species}
-                  characters={this.state.people} /> */}
+      <>
+        {isLoaded && <AppContext.Provider value={{
+          onSelectCharacter: this.onSelectCharacter,
+          onSelectSpecies: this.onSelectSpecies,
+          selectedCharacter: this.state.selectedCharacter,
+          selectedSpecies: this.state.selectedSpecies,
+        }}>
+          <Router>
+            <Container fluid="md">
+              <div className="mt-4">
+                <div className="d-inline">
+                  <strong>Star Wars Characters</strong>
+                  <span className="mx-2">|</span>
+                  <AppBreadcrumbs />
+                </div>
               </div>
-            </div>
-            <AppSearch />
-            <Switch>
-              <Route exact path="/">
-                <SpeciesListContainer allSpecies={this.state.species} />
-              </Route>
-              <Route exact path="/characters">
-                <CharacterListContainer characters={this.state.people} />
-              </Route>
-              <Route path="/characters/:characterId">
-                <CharacterDetail />
-              </Route>
-            </Switch>
-          </Container>
-        </Router>
-      </AppContext.Provider>
+              {/* <AppSearch /> */}
+              <Switch>
+                <Route exact path="/">
+                  <SpeciesListContainer allSpecies={this.state.species} />
+                </Route>
+                <Route exact path="/characters">
+                  <CharacterListContainer characters={this.state.people} />
+                </Route>
+                <Route path="/characters/:characterId">
+                  <CharacterDetail />
+                </Route>
+              </Switch>
+            </Container>
+          </Router>
+        </AppContext.Provider>
+        }
+      </>
     );
   }
 }

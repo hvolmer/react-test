@@ -47,7 +47,7 @@ function SpeciesListNav() {
       <Col>
         <button className="btn btn-sm btn-light" disabled>Prev</button>
         {/* Can't get the ml-2 to work! */}
-        &nbsp; 
+        &nbsp;
         <button className="btn btn-sm btn-light ml-2" disabled>Next</button>
       </Col>
     </Row>

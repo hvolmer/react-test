@@ -19,7 +19,7 @@ export async function getAllAtOnce() {
   const allSpecies: Species[] = [];
   const noneSpecies: Partial<Species> = {
     name: "No species",
-    url: "",
+    url: "!none!",
   };
   allSpecies.push(noneSpecies as Species);
   const r1 = await api.get<SwapiResponse<Species>>('species');

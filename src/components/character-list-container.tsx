@@ -15,7 +15,12 @@ export function CharacterListContainer(props: CharacterListContainerProps) {
   let speciesUrl = appContext.selectedSpecies?.url; // query.get('species') || '';
   const [characters, setCharacters] = useState<Person[]>([]);
   useEffect(() => {
-    const matchingCharacters = props.characters.filter(c => c.species.includes(speciesUrl));
+    const matchingCharacters = props.characters.filter(c => {
+      if(speciesUrl === '!none!') {
+        return (!c.species || !c.species.length);
+      }
+      return c.species.includes(speciesUrl);
+    });
     setCharacters(matchingCharacters);
     // Not sure how else to make this nuisance warning go away without invoking 
     // endless state changes

@@ -13,6 +13,14 @@ import { getAllAtOnce as getAllPeople } from "../services/people.service";
 import { SpeciesListContainer } from "./species-list-container";
 import { CharacterListContainer } from "./character-list-container";
 import { AppBreadcrumbs } from "./app-breadcrumbs";
+import { CharacterDetail } from "./character-detail";
+import { AppSearch } from "./app-search";
+
+export const AppContext = React.createContext<AppContextProps>({
+  onSelectCharacter: (c) => { },
+  onSelectSpecies: (c) => { },
+});
+
 
 export class App extends React.Component<any, AppState> {
 
@@ -23,6 +31,7 @@ export class App extends React.Component<any, AppState> {
     this.state = {
       peopleLoaded: false,
       people: [],
+      selectedCharacter: null,
       selectedSpecies: null,
       species: [],
     }
@@ -42,26 +51,64 @@ export class App extends React.Component<any, AppState> {
     });
   }
 
+  /**
+   * 
+   * @param c 
+   */
+  onSelectCharacter = (c: Person) => {
+    console.log("ON SELECT CHARACTER", c);
+    this.setState({
+      selectedCharacter: c,
+    });
+  }
+
+  /**
+   * 
+   * @param s 
+   */
+  onSelectSpecies = (s: Species) => {
+    this.setState({
+      selectedSpecies: s,
+    });
+  }
+
+  /**
+   * 
+   * @returns 
+   */
   render() {
     return (
-      <>
+      <AppContext.Provider value={{
+        onSelectCharacter: this.onSelectCharacter,
+        onSelectSpecies: this.onSelectSpecies,
+        selectedCharacter: this.state.selectedCharacter,
+        selectedSpecies: this.state.selectedSpecies,
+      }}>
         <Router>
-          <div>
-            <Container fluid="md">
-              <AppBreadcrumbs species={this.state.species} />
-
-              <Switch>
-                <Route exact path="/">
-                  <SpeciesListContainer allSpecies={this.state.species} />
-                </Route>
-                <Route path="/characters">
-                  <CharacterListContainer characters={this.state.people} />
-                </Route>
-              </Switch>
-            </Container>
-          </div>
+          <Container fluid="md">
+            <div className="mt-4">
+              <div className="d-inline">
+                <strong>Star Wars Characters</strong>
+                <span className="mx-2">|</span>
+                <AppBreadcrumbs species={this.state.species}
+                  characters={this.state.people} />
+              </div>
+            </div>
+            <AppSearch />
+            <Switch>
+              <Route exact path="/">
+                <SpeciesListContainer allSpecies={this.state.species} />
+              </Route>
+              <Route exact path="/characters">
+                <CharacterListContainer characters={this.state.people} />
+              </Route>
+              <Route path="/characters/:characterId">
+                <CharacterDetail />
+              </Route>
+            </Switch>
+          </Container>
         </Router>
-      </>
+      </AppContext.Provider>
     );
   }
 }
@@ -69,11 +116,14 @@ export class App extends React.Component<any, AppState> {
 export interface AppState {
   peopleLoaded: boolean;
   people: Person[];
+  selectedCharacter: Person | null;
   selectedSpecies: Species | null;
   species: Species[];
 }
 
-export interface PeopleContext {
-  people: Person[];
-  peopleLoaded: boolean;
+export interface AppContextProps {
+  onSelectCharacter: (p: Person) => void;
+  onSelectSpecies: (s: Species) => void;
+  selectedCharacter?: Person | null;
+  selectedSpecies?: Species | null;
 }

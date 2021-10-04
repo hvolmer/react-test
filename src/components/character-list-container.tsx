@@ -1,24 +1,32 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import { useHistory, useLocation } from "react-router";
+import { useHistory } from "react-router";
 import { Person } from "../types/person";
+import { AppContext, AppContextProps } from "./app";
 
 export function CharacterListContainer(props: CharacterListContainerProps) {
-  const query = new URLSearchParams(useLocation().search);
-  let speciesUrl = query.get('species') || '';
+  const appContext = useContext<AppContextProps>(AppContext);
+
+  if (!appContext.selectedSpecies) { throw new Error() }
+
+  let speciesUrl = appContext.selectedSpecies?.url; // query.get('species') || '';
   const [characters, setCharacters] = useState<Person[]>([]);
   useEffect(() => {
-    console.log("Will retrieve " + speciesUrl);
-    const matchingChars = props.characters.filter(c => c.species.includes(speciesUrl));
-    setCharacters(matchingChars);
+    const matchingCharacters = props.characters.filter(c => c.species.includes(speciesUrl));
+    setCharacters(matchingCharacters);
+    // Not sure how else to make this nuisance warning go away
+    // eslint-disable-next-line
   }, []);
 
   const history = useHistory();
   const items = characters.map(c => {
-    // I'm using the url and router to try to retain some history
+    // I'm using the url and router to try to retain some history`
     const id = c.url.split('/').slice(-2)[0];
     return (
-      <div key={c.url} onClick={() => history.push(`/characters/${id}`)}>
+      <div key={c.url} onClick={() => {
+        appContext.onSelectCharacter(c);
+        history.push(`/characters/${id}`);
+      }}>
         <span className="text-light">{c.name}</span>
       </div>
     )
@@ -39,6 +47,9 @@ export function CharacterListContainer(props: CharacterListContainerProps) {
   );
 }
 
+/**
+ * 
+ */
 function ListNav() {
   return (
     <Row className="bg-secondary py-2 my-2">

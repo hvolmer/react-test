@@ -1,28 +1,31 @@
+import { useContext } from "react";
 import { Col, Row } from "react-bootstrap";
 import { useHistory } from "react-router";
 import { Species } from "../types/species";
+import { AppContext } from "./app";
 
-
+/**
+ * 
+ */
 export function SpeciesListContainer(props: SpeciesListProps) {
+  const appContext = useContext(AppContext);
   const history = useHistory();
 
   const speciesItems = props.allSpecies.map(s => {
     const url = encodeURIComponent(s.url);
     return (
-      <div key={s.url} onClick={() => history.push('characters?species=' + url)}>
+      <div key={s.url} onClick={() => {
+        appContext.onSelectSpecies(s);
+        history.push('characters?species=' + url);
+      }}>
         <span className="text-light">{s.name}</span>
       </div>
     )
   });
 
   return (
-    <div>
-      <Row className="bg-primary py-2 mb-2">
-        <Col>
-          <button className="btn btn-sm btn-light">Prev</button>
-          <button className="btn btn-sm btn-light ml-2">Next</button>
-        </Col>
-      </Row>
+    <>
+      <SpeciesListNav />
       <Row>
         <Col>
           <div className="card-grid">
@@ -30,14 +33,25 @@ export function SpeciesListContainer(props: SpeciesListProps) {
           </div>
         </Col>
       </Row>
-      <Row className="bg-primary py-2 my-2">
-        <Col>
-          <button className="btn btn-sm btn-light">Prev</button>
-          <button className="btn btn-sm btn-light ml-2">Next</button>
-        </Col>
-      </Row>
-    </div>
+      <SpeciesListNav />
+    </>
   )
+}
+
+/**
+ * 
+ */
+function SpeciesListNav() {
+  return (
+    <Row className="bg-secondary py-2 my-2">
+      <Col>
+        <button className="btn btn-sm btn-light">Prev</button>
+        {/* Can't get the ml-2 to work! */}
+        &nbsp; 
+        <button className="btn btn-sm btn-light ml-2">Next</button>
+      </Col>
+    </Row>
+  );
 }
 
 interface SpeciesListProps {

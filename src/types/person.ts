@@ -16,3 +16,11 @@ export interface Person {
   created: string;
   edited: string;
 }
+
+export interface PersonExtended {
+  homeworld: any;
+  films: any[];
+  species: any[];
+  starships: any[];
+  vehicles: any[];
+}
